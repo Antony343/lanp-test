@@ -1,0 +1,9 @@
+@import '~normalize.css/normalize.css';
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F5F9FF;
+  min-height: 100vh;
+  padding: 15px;
+}

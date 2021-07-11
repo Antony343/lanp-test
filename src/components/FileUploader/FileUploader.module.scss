@@ -1,0 +1,97 @@
+.logo-uploader {
+  font-family: Proxima Nova, sans-serif;
+  background-color: white;
+  border: 2px solid #e8f1fb;
+  box-sizing: border-box;
+  &__header {
+    padding: 0 20px 18px 20px;
+    border-bottom: 2px solid #e8f1fb;
+    &-title {
+      margin-bottom: 7px;
+      margin-top: 21px;
+      font-size: 20px;
+      color: #192533;
+    }
+    &-descr {
+      font-size: 12px;
+      color: #6b85a3;
+    }
+  }
+  &__body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30em;
+    &-drop-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 90%;
+      width: 90%;
+      &.active {
+        border: 1px dashed #4991e5;
+        background-color: #f5f9ff;
+      }
+      &-img-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        height: 100px;
+        width: 100px;
+        border: 1px solid #d1e3f8;
+        border-radius: 50%;
+        &:after {
+          display: block;
+          content: '';
+          position: absolute;
+          height: 100px;
+          width: 100px;
+          border: 2px solid #d1e3f8;
+          border-top-color: #fff;
+          border-radius: 50%;
+          animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        img {
+          max-height: 64%;
+        }
+      }
+      &-descr {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-weight: 400;
+        font-size: 12px;
+        span:nth-child(1) {
+          margin-top: 10px;
+          color: #324964;
+        }
+        span:nth-child(2) {
+          margin: 5px 0;
+          color: #6b85a3;
+        }
+        span:nth-child(3) {
+          color: #4991e5;
+          cursor: pointer;
+        }
+        a {
+          text-decoration: none;
+          color: #4991e5;
+        }
+      }
+    }
+  }
+}
+.no-after:after {
+  content: none;
+}

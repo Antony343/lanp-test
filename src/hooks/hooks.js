@@ -1,15 +1,13 @@
 import { useRef, useState } from "react";
 import { getBase64, validateFile } from "../utils/utils";
 
-const useFileLoader = data => {
-  const [isDraggedOver, setIsDraggedOver] = useState(false);
+export const useFileLoader = () => {
   const [imgFile, setImgFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const cancelled = useRef(false);
-  const inputFile = useRef(null);
 
 
-  const uploadFileOnchange = async file => {
+  const uploadFile = async file => {
 
     setIsUploading(true);
 
@@ -27,12 +25,11 @@ const useFileLoader = data => {
 
     cancelled.current = false;
   }
-  const uploadFileOnDrop = async e => {
 
-  }
   return {
-    uploadFileOnchange,
-    isDraggedOver,
-    isUploading
+    uploadFile,
+    isUploading,
+    cancelled,
+    imgFile
   }
 }

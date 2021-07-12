@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react';
 import styles from './FileUploader.module.scss';
-import { getBase64, validateFile } from '../../utils/utils';
+import { useFileLoader } from '../../hooks/hooks';
 
 const FileUploader = () => {
   const [isDraggedOver, setIsDraggedOver] = useState(false);
-  const [imgFile, setImgFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const cancelled = useRef(false);
   const inputFile = useRef(null);
+  const { uploadFile,
+    isUploading,
+    cancelled,
+    imgFile } = useFileLoader();
 
   const onDragStartHandler = e => {
     e.preventDefault();
@@ -23,22 +24,9 @@ const FileUploader = () => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
 
-    setIsUploading(true);
     setIsDraggedOver(false);
 
-    // converting img file to base64
-    await validateFile(file)
-      .then(file => getBase64(file))
-      .then(base64Img => {
-        !cancelled.current && setImgFile(base64Img);
-        setIsUploading(false);
-      })
-      .catch(err => {
-        setIsUploading(false);
-        alert(err);
-      })
-
-    cancelled.current = false;
+    await uploadFile(file);
   }
 
   const cancelUploadHandler = () => {
@@ -46,15 +34,18 @@ const FileUploader = () => {
   }
 
   const browseFileHandler = e => {
-   inputFile.current.click();
+    inputFile.current.click();
   };
 
-  const onChangeFileHandler = e => {
-    console.log(e.target.files[0])
+  const onChangeFileHandler = async e => {
+    const file = e.target.files[0];
+    await uploadFile(file);
+
   }
 
   return (
     <div className={styles['logo-uploader']}>
+      {console.log('render')}
       <header className={styles['header']}>
         <h1 className={styles['header-title']}>Company Logo</h1>
         <span className={styles['header-descr']}>Logo should be square, 100px size and in png, jpeg file format.</span>
@@ -77,8 +68,8 @@ const FileUploader = () => {
               ? <span onClick={cancelUploadHandler}>Cancel</span>
               : <span onClick={browseFileHandler}>
                 Select file to upload
-                <input onChange={onChangeFileHandler} ref={inputFile} type="file" id="file" style={{display: "none"}}/>
-                </span>
+                <input onChange={onChangeFileHandler} ref={inputFile} type="file" id="file" style={{ display: "none" }} />
+              </span>
             }
           </div>
         </div>

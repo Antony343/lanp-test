@@ -1,36 +1,34 @@
 const createImg = (result) => {
-  let img = new Image();
+  const img = new Image();
   img.src = result;
   return img;
 };
 
-const validateImageRes = img => {
+const validateImageRes = (img) => {
   if (img.height === 100 && img.width === 100) {
-    return true
+    return true;
   }
-  return false
+  return false;
 };
 
 const validateFileType = (fileType) => {
   let isValid = (fileType[0] === 'image' && ['jpg', 'jpeg', 'png'].includes(fileType[1])) ? true : false;
-  return isValid
+  return isValid;
 };
 
 export const validateFile = (file) => new Promise((resolve, reject) => {
   const fileType = file.type.split('/');
   const fileURL = URL.createObjectURL(file);
 
-  if (!validateFileType(fileType)) {
-    reject(`The file extension .${fileType[1]} is not supported.`);
-  }
-  
+  if (!validateFileType(fileType)) reject(`The .${fileType[1]} files are not supported.`);
+
   const img = createImg(fileURL);
-  
+
   img.onload = () => {
     if (validateImageRes(img)) {
       resolve(file);
     } else {
-      reject('Inappropriate image size! Should be 100x100px.');
+      reject('Inappropriate image size!');
     }
   }
 });

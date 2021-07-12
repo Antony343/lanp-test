@@ -1,21 +1,20 @@
-import { useRef, useState } from "react";
-import { getBase64, validateFile } from "../utils/utils";
+import { useRef, useState } from 'react';
+import { getBase64, validateFile } from '../utils/utils';
 
 export const useFileLoader = () => {
   const [imgFile, setImgFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const cancelled = useRef(false);
+  const isCancelled = useRef(false);
 
 
-  const uploadFile = async file => {
+  const uploadFile = async (file) => {
 
     setIsUploading(true);
 
-    // converting img file to base64
     await validateFile(file)
       .then(file => getBase64(file))
       .then(base64Img => {
-        !cancelled.current && setImgFile(base64Img);
+        !isCancelled.current && setImgFile(base64Img);
         setIsUploading(false);
       })
       .catch(err => {
@@ -23,13 +22,13 @@ export const useFileLoader = () => {
         alert(err);
       })
 
-    cancelled.current = false;
-  }
+    isCancelled.current = false;
+  };
 
   return {
     uploadFile,
     isUploading,
-    cancelled,
+    isCancelled,
     imgFile
   }
 }

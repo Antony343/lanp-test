@@ -3,6 +3,7 @@ import { useFileLoader } from './hooks/useFileLoader';
 import styles from './DropZone.module.scss';
 import { validateImgFile } from './utils/validators/validators';
 import { FilePreview } from '../FilePreview/FilePreview';
+import { UploadButton } from '../Buttons/UploadButton/UploadButton';
 
 const DropZone = () => {
   const [isDraggedOver, setIsDraggedOver] = useState(false);
@@ -53,15 +54,7 @@ const DropZone = () => {
         {isUploading ? (
           <span onClick={handleCancelUpload}>Cancel</span>
         ) : (
-          <label htmlFor="file">
-            Select file to upload
-            <input
-              onChange={handleFileChange}
-              type="file"
-              id="file"
-              style={{ display: 'none' }}
-            />
-          </label>
+          <UploadButton {...{ handleFileChange }} />
         )}
       </div>
     </div>

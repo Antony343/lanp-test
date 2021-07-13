@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useFileLoader } from './hooks/useFileLoader';
 import styles from './DropZone.module.scss';
-import { validateImgFile } from './utils/utils';
+import { validateImgFile } from './utils/validators/validators';
+import { FilePreview } from '../FilePreview/FilePreview';
 
 const DropZone = () => {
   const [isDraggedOver, setIsDraggedOver] = useState(false);
-  const inputFile = useRef(null);
   const { uploadFile, isUploading, isCancelled, file } = useFileLoader(validateImgFile);
 
   const handleDragOver = (e) => {
@@ -30,10 +30,6 @@ const DropZone = () => {
     isCancelled.current = true;
   };
 
-  const handleBrowseFile = () => {
-    inputFile.current.click();
-  };
-
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     return void await uploadFile(file);
@@ -46,14 +42,7 @@ const DropZone = () => {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <div
-        className={`
-        ${styles.img_container} 
-        ${isUploading ? '' : styles.no_after}
-        ${isDraggedOver ? styles.dragging_in_progress : ''}
-        `}>
-        <img src={file || "./file-img-default.png"} alt="Uploaded logo" />
-      </div>
+      <FilePreview {...{ isUploading, isDraggedOver, file }} />
       <div
         className={`
         ${styles.description} 
@@ -64,16 +53,15 @@ const DropZone = () => {
         {isUploading ? (
           <span onClick={handleCancelUpload}>Cancel</span>
         ) : (
-          <span onClick={handleBrowseFile}>
+          <label htmlFor="file">
             Select file to upload
             <input
               onChange={handleFileChange}
-              ref={inputFile}
               type="file"
               id="file"
               style={{ display: 'none' }}
             />
-          </span>
+          </label>
         )}
       </div>
     </div>

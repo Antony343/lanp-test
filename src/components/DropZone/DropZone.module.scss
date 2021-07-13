@@ -10,39 +10,6 @@
       border: 1px dashed #4991e5;
       background-color: #f5f9ff;
     }
-    .img_container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      height: 100px;
-      width: 100px;
-      border: 1px solid #d1e3f8;
-      border-radius: 50%;
-      &:after {
-        display: block;
-        content: '';
-        position: absolute;
-        height: 100px;
-        width: 100px;
-        border: 2px solid #f5f9ff;
-        border-top-color: #4991e5;
-        border-radius: 50%;
-        animation: spin 2s linear infinite;
-      }
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      img {
-        max-height: 64%;
-      }
-    }
     .description {
       display: flex;
       flex-direction: column;
@@ -57,15 +24,12 @@
         margin: 5px 0;
         color: #6b85a3;
       }
-      span:nth-child(3) {
+      label {
         color: #4991e5;
         cursor: pointer;
       }
     }
   }
-}
-.no_after:after {
-  content: none !important;
 }
 .dragging_in_progress {
   pointer-events: none;

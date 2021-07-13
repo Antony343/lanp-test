@@ -1,5 +1,5 @@
 import styles from './FileUploader.module.scss';
-import DropZone from './DropZone/DropZone';
+import { DropZone } from '../DropZone/DropZone';
 
 const FileUploader = () => {
 

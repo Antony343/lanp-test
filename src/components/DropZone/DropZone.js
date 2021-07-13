@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { useFileLoader } from '../../../hooks/hooks';
+import { useFileLoader } from './hooks/useFileLoader';
 import styles from './DropZone.module.scss';
+import { validateImgFile } from './utils/utils';
 
 const DropZone = () => {
   const [isDraggedOver, setIsDraggedOver] = useState(false);
   const inputFile = useRef(null);
-  const { uploadFile, isUploading, isCancelled, imgFile } = useFileLoader();
+  const { uploadFile, isUploading, isCancelled, file } = useFileLoader(validateImgFile);
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const DropZone = () => {
     const file = e.dataTransfer.files[0];
     setIsDraggedOver(false);
 
-    await uploadFile(file);
+    return void await uploadFile(file);
   };
 
   const handleCancelUpload = () => {
@@ -35,7 +36,7 @@ const DropZone = () => {
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
-    await uploadFile(file);
+    return void await uploadFile(file);
   };
 
   return (
@@ -51,7 +52,7 @@ const DropZone = () => {
         ${isUploading ? '' : styles.no_after}
         ${isDraggedOver ? styles.dragging_in_progress : ''}
         `}>
-        <img src={imgFile || './file-img-default.png'} alt='Uploaded logo' />
+        <img src={file || "./file-img-default.png"} alt="Uploaded logo" />
       </div>
       <div
         className={`
@@ -68,8 +69,8 @@ const DropZone = () => {
             <input
               onChange={handleFileChange}
               ref={inputFile}
-              type='file'
-              id='file'
+              type="file"
+              id="file"
               style={{ display: 'none' }}
             />
           </span>
@@ -79,4 +80,4 @@ const DropZone = () => {
   );
 };
 
-export default DropZone;
+export { DropZone };

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { getBase64 } from '../utils/utils';
 
-export const useFileLoader = (validateFile) => {
+export const useFileLoader = (validator) => {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const isCancelled = useRef(false);
@@ -9,17 +9,14 @@ export const useFileLoader = (validateFile) => {
   const uploadFile = async (file) => {
 
     setIsUploading(true);
-
-    await validateFile(file)
-      .then(file => getBase64(file))
-      .then(base64 => {
-        !isCancelled.current && setFile(base64);
-      })
-      .catch(err => {
-        alert(err);
-      })
-      .finally(() => setIsUploading(false))
-
+    try {
+      const validatedFile = await validator(file);
+      const base64 = await getBase64(validatedFile);
+      !isCancelled.current && setFile(base64);
+    } catch (err) {
+      alert(err)
+    }
+    setIsUploading(false)
     isCancelled.current = false;
   };
 

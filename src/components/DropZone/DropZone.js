@@ -1,48 +1,18 @@
-import React, { useState } from 'react';
-import { useFileLoader } from './hooks/useFileLoader';
+import React from 'react';
 import styles from './DropZone.module.scss';
-import { validateImgFile } from './utils/validators/validators';
 import { FilePreview } from '../FilePreview/FilePreview';
 import { UploadButton } from '../Buttons/UploadButton/UploadButton';
 
-const DropZone = () => {
-  const [isDraggedOver, setIsDraggedOver] = useState(false);
-  const { uploadFile, isUploading, isCancelled, file } = useFileLoader(validateImgFile);
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDraggedOver(true);
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    setIsDraggedOver(false);
-  };
-
-  const handleDrop = async (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    setIsDraggedOver(false);
-
-    return void await uploadFile(file);
-  };
-
-  const handleCancelUpload = () => {
-    isCancelled.current = true;
-  };
-
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    return void await uploadFile(file);
-  };
+const DropZone = ({ isDraggedOver, isUploading, file, handleDragOver, handleDragEnter, handleDragLeave, handleDrop, handleCancelUpload, handleFileChange }) => {
 
   return (
     <div
       className={`${styles.body_drop_area} ${isDraggedOver ? styles.active : ''}`}
-      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
+      {console.log('render')}
       <FilePreview {...{ isUploading, isDraggedOver, file }} />
       <div
         className={`

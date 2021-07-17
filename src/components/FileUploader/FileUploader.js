@@ -11,8 +11,8 @@ const FileUploader = () => {
         <span className={styles.header_descr}>Logo should be square, 100px size and in png, jpeg file format.</span>
       </header>
       <div className={styles.body}>
-        <DropZoneContainer validator={validateImgFile} />
-        <DropZoneContainer validator={validatePdfFile} />
+        <DropZoneContainer validator={validateImgFile} inputId="file-image" />
+        <DropZoneContainer validator={validatePdfFile} inputId="file-pdf" />
       </div>
     </div >
   )

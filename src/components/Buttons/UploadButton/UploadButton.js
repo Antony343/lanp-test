@@ -1,14 +1,14 @@
 import React from 'react';
 import './UploadButton.module.scss'
 
-const UploadButton = ({ handleFileChange }) => {
+const UploadButton = ({ handleFileChange, inputId }) => {
   return (
-      <label htmlFor="file">
+      <label htmlFor={inputId}>
         Select file to upload
         <input
         onChange={handleFileChange}
         type="file"
-        id="file"
+        id={inputId}
         style={{ display: 'none' }}
       />
       </label>

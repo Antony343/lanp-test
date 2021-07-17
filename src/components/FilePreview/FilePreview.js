@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './FilePreview.module.scss'
 
 const FilePreview = ({ isUploading, isDraggedOver, file }) => {
+  const isPdf = file => file.indexOf('pdf') !== -1;
+  
   return (
     <div
       className={`
@@ -10,7 +12,7 @@ const FilePreview = ({ isUploading, isDraggedOver, file }) => {
     ${isDraggedOver ? styles.dragging_in_progress : ''}
     `}>
 
-      {(file && file.indexOf('pdf') !== -1) ?
+      {file && isPdf(file) ?
         <>
           <img src="./pdf-logo.jpg" alt="Uploaded pdf" />
           <span className={styles.file_name}>Uploaded.pdf</span>

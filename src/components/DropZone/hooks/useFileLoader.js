@@ -5,7 +5,7 @@ export const useFileLoader = (validator) => {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const isCancelled = useRef(false);
-  console.log(file)
+
   const uploadFile = async (file) => {
     setIsUploading(true);
     try {

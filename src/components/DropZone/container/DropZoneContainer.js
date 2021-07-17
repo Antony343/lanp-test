@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DropZone } from '../DropZone';
 import { useFileLoader } from '../hooks/useFileLoader';
 
-const DropZoneContainer = ({ validator }) => {
+const DropZoneContainer = ({ validator, inputId }) => {
   const [isDraggedOver, setIsDraggedOver] = useState(false);
   const { uploadFile, isUploading, isCancelled, file } = useFileLoader(validator);
 
@@ -38,7 +38,7 @@ const DropZoneContainer = ({ validator }) => {
   };
 
   return (
-    <DropZone {...{ isDraggedOver, isUploading, file, handleDragOver, handleDragEnter, handleDragLeave, handleDrop, handleCancelUpload, handleFileChange }} />
+    <DropZone {...{ isDraggedOver, isUploading, file, handleDragOver, handleDragEnter, handleDragLeave, handleDrop, handleCancelUpload, handleFileChange, inputId }} />
   )
 };
 

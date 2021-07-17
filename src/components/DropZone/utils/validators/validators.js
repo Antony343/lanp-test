@@ -23,5 +23,5 @@ const checkOnPdfExt = fileType => fileType[0] === 'application' && fileType[1] =
 export const validatePdfFile = file => new Promise((resolve, reject) => {
   const fileType = file.type.split('/');
 
-  checkOnPdfExt(fileType) ? resolve(file) : reject('Unsupported file')
+  checkOnPdfExt(fileType) ? resolve(file) : reject('You can upload here only .pdf')
 })

@@ -38,7 +38,11 @@ const DropZoneContainer = ({ validator, inputId }) => {
   };
 
   return (
-    <DropZone {...{ isDraggedOver, isUploading, file, handleDragOver, handleDragEnter, handleDragLeave, handleDrop, handleCancelUpload, handleFileChange, inputId }} />
+    <DropZone {...{
+      isDraggedOver, isUploading, file, handleDragOver,
+      handleDragEnter, handleDragLeave, handleDrop,
+      handleCancelUpload, handleFileChange, inputId
+    }} />
   )
 };
 

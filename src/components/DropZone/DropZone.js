@@ -13,7 +13,6 @@ const DropZone = ({ isDraggedOver, isUploading, file, handleDragOver, handleDrag
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      {isUploading ? console.log(isUploading) : console.log(isUploading)}
       <FilePreview {...{ isUploading, isDraggedOver, file }} />
       <div
         className={`

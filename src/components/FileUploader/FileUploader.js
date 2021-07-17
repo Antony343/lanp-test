@@ -1,6 +1,6 @@
 import styles from './FileUploader.module.scss';
 import { DropZoneContainer } from '../DropZone/container/DropZoneContainer';
-import { validateImgFile } from '../DropZone/utils/validators/validators'
+import { validateImgFile, validatePdfFile } from '../DropZone/utils/validators/validators'
 
 const FileUploader = () => {
 
@@ -12,6 +12,7 @@ const FileUploader = () => {
       </header>
       <div className={styles.body}>
         <DropZoneContainer validator={validateImgFile} />
+        <DropZoneContainer validator={validatePdfFile} />
       </div>
     </div >
   )

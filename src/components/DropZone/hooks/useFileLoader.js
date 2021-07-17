@@ -5,9 +5,8 @@ export const useFileLoader = (validator) => {
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const isCancelled = useRef(false);
-
+  console.log(file)
   const uploadFile = async (file) => {
-
     setIsUploading(true);
     try {
       const validatedFile = await validator(file);
@@ -24,6 +23,6 @@ export const useFileLoader = (validator) => {
     uploadFile,
     isUploading,
     isCancelled,
-    file
+    file,
   }
 }

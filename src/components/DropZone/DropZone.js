@@ -9,10 +9,10 @@ const DropZone = ({ isDraggedOver, isUploading, file, handleDragOver, handleDrag
     <div
       className={`${styles.body_drop_area} ${isDraggedOver ? styles.active : ''}`}
       onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      {console.log('render')}
       <FilePreview {...{ isUploading, isDraggedOver, file }} />
       <div
         className={`

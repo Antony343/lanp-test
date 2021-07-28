@@ -3,7 +3,7 @@ import styles from './DropZone.module.scss';
 import { FilePreview } from '../FilePreview/FilePreview';
 import { UploadButton } from '../Buttons/UploadButton/UploadButton';
 
-const DropZone = ({ isDraggedOver, isUploading, file, handleDragOver, handleDragEnter, handleDragLeave, handleDrop, handleCancelUpload, handleFileChange, inputId }) => {
+const DropZone = ({ isDraggedOver, isUploading, file, handleDragOver, handleDragEnter, handleDragLeave, handleDrop, handleCancelUpload, handleFileChange, children }) => {
 
   return (
     <div
@@ -24,7 +24,10 @@ const DropZone = ({ isDraggedOver, isUploading, file, handleDragOver, handleDrag
         {isUploading ? (
           <span onClick={handleCancelUpload}>Cancel</span>
         ) : (
-          <UploadButton {...{ handleFileChange, inputId }} />
+          <UploadButton {...{ handleFileChange }}>
+            {/* children contains needed content for button */}
+            {children}
+          </UploadButton>
         )}
       </div>
     </div>

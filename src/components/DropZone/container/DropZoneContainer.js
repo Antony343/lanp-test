@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { DropZone } from '../DropZone';
 import { useFileLoader } from '../hooks/useFileLoader';
 
-const DropZoneContainer = ({ validator, inputId }) => {
+const DropZoneContainer = ({ validator, pushFile, children }) => {
   const [isDraggedOver, setIsDraggedOver] = useState(false);
-  const { uploadFile, isUploading, isCancelled, file } = useFileLoader(validator);
+  const { uploadFile, isUploading, isCancelled, file } = useFileLoader(validator, pushFile);
 
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -36,13 +36,14 @@ const DropZoneContainer = ({ validator, inputId }) => {
     const file = e.target.files[0];
     return void await uploadFile(file);
   };
-
   return (
     <DropZone {...{
       isDraggedOver, isUploading, file, handleDragOver,
       handleDragEnter, handleDragLeave, handleDrop,
-      handleCancelUpload, handleFileChange, inputId
-    }} />
+      handleCancelUpload, handleFileChange
+    }}>
+      {children}
+    </DropZone>
   )
 };
 
